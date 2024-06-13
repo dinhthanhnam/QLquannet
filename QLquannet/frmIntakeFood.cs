@@ -28,7 +28,7 @@ namespace QLquannet
             txtMaHoaDon.Enabled = false;
             txtSoLuong.Enabled = false;
             LoadCboCat();
-            txtMaHoaDon.Text = BillingDAL.Instance.GetMaxBillingID().ToString();
+            txtMaHoaDon.Text = (BillingDAL.Instance.GetMaxBillingID() + 1).ToString();
         }
         private void LoadCboCat()
         {
@@ -272,6 +272,7 @@ namespace QLquannet
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
+            BillingDAL.Instance.BillingINIT(0);
             foreach (DataGridViewRow row in dgvFood.Rows)
             {
                 if (Convert.ToInt32(row.Cells["SoLuongThem"].Value) != 0)

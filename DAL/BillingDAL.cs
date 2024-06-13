@@ -59,9 +59,12 @@ namespace DAL
                 return 1;
             }
         }
+        public void BillingINIT(int type)
+        {
+            Database.Instance.ExecuteNonQuery($"Exec ProcBillingINIT {type}");
+        }
         public void CheckOutFoodIntake(byte foodId, int count)
         {
-            Database.Instance.ExecuteNonQuery("Exec ProcBillingINIT 0");
             int billid = GetMaxBillingID();
             Database.Instance.ExecuteNonQuery($"Insert into FoodDetail(Billingid, foodid, count) values ({billid},{foodId}, {count})");
             Database.Instance.ExecuteNonQuery("Exec ProcCheckOut @billingid , @employeeid", new object[] {billid, Employee.emId});
